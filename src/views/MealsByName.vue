@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8">
+  <div class="p-8 pb-0">
     <input
       type="text"
       v-model="keyword"
@@ -15,11 +15,13 @@
       :key="meal.idMeal"
       class="bg-white shadow rounded-xl"
     >
-      <img
-        :src="meal.strMealThumb"
-        alt="strMeal"
-        class="rounded-t-xl h-48 w-full object-cover"
-      />
+      <router-link to="/">
+        <img
+          :src="meal.strMealThumb"
+          alt="strMeal"
+          class="rounded-t-xl h-48 w-full object-cover"
+        />
+      </router-link>
       <div class="p-3">
         <h3 class="font-bold">{{ meal.strMeal }}</h3>
         <p class="mb-4">
@@ -42,14 +44,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { computed } from "@vue/reactivity";
-import store from "../store";
+  import { onMounted, ref } from "vue";
+  import { computed } from "@vue/reactivity";
+  import store from "../store";
+  import { useRoute } from "vue-router";
 
-const keyword = ref("");
-const meals = computed(() => store.state.searchedMeals);
+  const route = useRoute();
 
-function searchMeals() {
-  store.dispatch("searchMeals", keyword.value);
-}
+  const keyword = ref("");
+  const meals = computed(() => store.state.searchedMeals);
+
+  function searchMeals() {
+    store.dispatch("searchMeals", keyword.value);
+  }
+
+  onMounted(() => {
+    keyword.value = route.params.name;
+    if (keyword.value) {
+      searchMeals();
+    }
+  })
 </script>
