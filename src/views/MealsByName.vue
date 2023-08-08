@@ -31,7 +31,9 @@
           numquam. Nulla, commodi?
         </p>
         <div class="flex items-center justify-between">
-          <YoutubeButton :href="meal.strYoutube" />
+          <YoutubeButton :href="meal.strYoutube">
+            Youtube
+          </YoutubeButton>
         </div>
       </div>
     </div>
