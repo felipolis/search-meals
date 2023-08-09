@@ -1,17 +1,20 @@
 <template>
-    <div>
-      Bt Ingredients
-    </div>
-  </template>
-  
+  <Meals :meals="meals" />
+</template>
+
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { computed } from "@vue/reactivity";
+import axiosClient from "../axiosClient";
+import store from "../store";
+import { useRoute } from "vue-router";
+import Meals from "../components/Meals.vue";
 
 
+const route = useRoute();
+const meals = computed(() => store.state.mealsByIngredient)
 
 onMounted(() => {
-  console.log('mounted')
+  store.dispatch('searchMealsByIngredient', route.params.ingredient)
 })
-
 </script>
-  

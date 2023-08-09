@@ -9,9 +9,7 @@
       </router-link>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 p-8">
-    <MealItem v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
-  </div>
+    <Meals :meals="meals" />
   </template>
   
 <script setup>
@@ -20,6 +18,7 @@ import { onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import store from '../store';
 import MealItem from "../components/MealItem.vue";
+import Meals from "../components/Meals.vue";
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const meals = computed(() => store.state.mealsByLetter)
